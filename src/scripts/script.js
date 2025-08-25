@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Manejo del evento de clic en el botón "Calcular"
     calculateBtn.addEventListener('click', calculateDigit);
     
+    // Límite la entrada del input a números y letras
+    patenteInput.addEventListener('input', (e) => {
+        const cleanedValue = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+        e.target.value = cleanedValue.toUpperCase();
+    });
+
     // Habilita el cálculo al presionar "Enter" en el input
     patenteInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -38,6 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Validación de formato de patente
+        // Acepta: 2 letras-3 números-2 letras (ej. AB123CD)
+        // o 3 letras-3 números (ej. ABC123)
+        // o 3 números-3 letras (ej. 123ABC)
+        // o 1 letra-3 números-3 letras (ej. A123BCD)
+        const regex = /^[A-Z]{2}[0-9]{3}[A-Z]{2}$|^[A-Z]{3}[0-9]{3}$|^[0-9]{3}[A-Z]{3}$|^[A-Z][0-9]{3}[A-Z]{3}$/;
+        if (!regex.test(patente)) {
+            resultElement.textContent = "Formato de patente inválido. Ejemplos válidos: AB123CD (auto), A123BCD (moto), ABC123 o 123ABC (antiguos).";
+            resultElement.style.color = 'red';
+            return;
+        }
+        
+        // Convierte la patente en una secuencia numérica
         let numericSequence = '';
         for (const char of patente) {
             if (/\d/.test(char)) {

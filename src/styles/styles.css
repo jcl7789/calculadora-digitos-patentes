@@ -1,44 +1,63 @@
 /* Variables para los colores del tema claro */
 :root {
-    --bg-color: #e2e8f0; /* bg-slate-200 */
+    --bg-color: #e2e8f0;
     --container-bg: white;
-    --text-color: #1f2937; /* text-gray-900 */
-    --paragraph-color: #4b5563; /* text-gray-700 */
-    --input-border: #d1d5db; /* border-gray-300 */
-    --input-focus-border: #3b82f6; /* border-blue-500 */
-    --button-bg: #2563eb; /* bg-blue-600 */
-    --button-hover-bg: #1e40af; /* bg-blue-700 */
-    --result-color: #10b981; /* text-emerald-500 */
+    --text-color: #1f2937;
+    --paragraph-color: #4b5563;
+    --input-border: #d1d5db;
+    --input-focus-border: #3b82f6;
+    --button-bg: #2563eb;
+    --button-hover-bg: #1e40af;
+    --result-color: #10b981;
+    --footer-bg: #cbd5e1; /* bg-slate-300 */
+    --footer-text-color: #4b5563; /* text-gray-700 */
+
+    /* Colores del slider */
+    --slider-bg: #ccc;
+    --slider-ball-bg: white;
+    --slider-toggle-color: #1f2937;
 }
 
 /* Variables para los colores del tema oscuro */
 body.dark-mode {
-    --bg-color: #1f2937; /* bg-gray-900 */
-    --container-bg: #374151; /* bg-gray-700 */
-    --text-color: #f3f4f6; /* text-gray-100 */
-    --paragraph-color: #d1d5db; /* text-gray-300 */
-    --input-border: #4b5563; /* border-gray-600 */
-    --input-focus-border: #60a5fa; /* border-blue-400 */
-    --button-bg: #3b82f6; /* bg-blue-500 */
-    --button-hover-bg: #2563eb; /* bg-blue-600 */
-    --result-color: #34d399; /* text-emerald-400 */
+    --bg-color: #1f2937;
+    --container-bg: #374151;
+    --text-color: #f3f4f6;
+    --paragraph-color: #d1d5db;
+    --input-border: #4b5563;
+    --input-focus-border: #60a5fa;
+    --button-bg: #3b82f6;
+    --button-hover-bg: #2563eb;
+    --result-color: #34d399;
+    --footer-bg: #111827; /* bg-gray-900 */
+    --footer-text-color: #d1d5db; /* text-gray-300 */
+
+    /* Colores del slider en modo oscuro */
+    --slider-bg: #2d3748;
+    --slider-ball-bg: #e2e8f0;
+    --slider-toggle-color: #e2e8f0;
+}
+
+html, body {
+    height: 100%; /* Asegura que el html y el body ocupen toda la altura de la página */
+    margin: 0;
 }
 
 body {
     font-family: 'Inter', Arial, sans-serif;
     display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
     background-color: var(--bg-color);
     transition: background-color 0.3s ease;
 }
 .container {
     background-color: var(--container-bg);
-    padding: 2.5rem; /* p-10 */
-    border-radius: 1rem; /* rounded-xl */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     text-align: center;
     max-width: 90%;
     width: 400px;
@@ -46,7 +65,7 @@ body {
 }
 h1 {
     color: var(--text-color);
-    font-size: 1.875rem; /* text-3xl */
+    font-size: 1.875rem;
     font-weight: bold;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
@@ -57,14 +76,14 @@ p {
     transition: color 0.3s ease;
 }
 input[type="text"] {
-    padding: 0.75rem; /* p-3 */
-    font-size: 1.125rem; /* text-xl */
+    padding: 0.75rem;
+    font-size: 1.125rem;
     width: 100%;
     max-width: 250px;
     text-transform: uppercase;
     text-align: center;
     border: 1px solid var(--input-border);
-    border-radius: 0.5rem; /* rounded-lg */
+    border-radius: 0.5rem;
     margin-bottom: 1rem;
     background-color: transparent;
     color: var(--text-color);
@@ -75,26 +94,27 @@ input[type="text"]:focus {
     border-color: var(--input-focus-border);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
-button {
-    padding: 0.75rem 2rem; /* py-3 px-8 */
+#calculate-btn, #theme-toggle {
+    padding: 0.75rem 2rem;
     font-size: 1rem;
     font-weight: 600;
     color: white;
     background-color: var(--button-bg);
     border: none;
-    border-radius: 0.5rem; /* rounded-lg */
+    border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 10px; /* Separación del botón de cálculo */
 }
-button:hover {
+#calculate-btn:hover, #theme-toggle:hover {
     background-color: var(--button-hover-bg);
 }
-button:active {
+#calculate-btn:active, #theme-toggle:active {
     transform: scale(0.98);
 }
 #result {
-    margin-top: 1.5rem; /* mt-6 */
-    font-size: 1.5rem; /* text-2xl */
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: var(--result-color);
     transition: color 0.3s ease;
@@ -106,4 +126,56 @@ button:active {
     h1 {
         font-size: 1.5rem;
     }
+}
+
+/* Nuevo estilo para el slider de tema flotante */
+.theme-toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: var(--slider-toggle-color);
+}
+
+.slider-container {
+    width: 50px;
+    height: 25px;
+    background-color: var(--slider-bg);
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.slider {
+    width: 21px;
+    height: 21px;
+    background-color: var(--slider-ball-bg);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+}
+
+/* Posición del slider en modo oscuro */
+body.dark-mode .slider {
+    transform: translateX(25px);
+}
+
+/* Estilos para el footer */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
+    font-size: 0.875rem; /* text-sm */
+    position: absolute; /* Posiciona el footer de manera absoluta */
+    bottom: 0; /* Lo fija al fondo de la página */
+    left: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }

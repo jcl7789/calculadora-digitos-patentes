@@ -6,17 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculador de Dígito Verificador de Patente CABA</title>
     <link rel="stylesheet" href="./src/styles/styles.css">
+    <!-- Font Awesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <div class="theme-toggle-container" id="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <div class="slider-container">
+            <div class="slider"></div>
+        </div>
+        <i class="fas fa-moon"></i>
+    </div>
+
     <div class="container">
         <h1>Calculadora de Dígito Verificador</h1>
         <p>Introduce la patente (Ej: ASD123 / AS123DF):</p>
         <input type="text" id="patenteInput" placeholder="Ej: 388LGV" maxlength="7">
         <button id="calculate-btn">Calcular</button>
         <p id="result"></p>
-        <button id="theme-toggle">Cambiar Tema</button>
     </div>
+
+    <footer>
+        <p>&copy; 2025 - Todos los derechos reservados.</p>
+    </footer>
 
     <script src="./src/scripts/script.js"></script>
 </body>
