@@ -1,89 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculador de Dígito Verificador de Patente CABA</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./src/styles/styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Calculadora de Dígito Verificador</h1>
         <p>Introduce la patente (Ej: ASD123 / AS123DF):</p>
-        <input type="text" id="patenteInput" placeholder="Ej: ASD123 / AS123DF" maxlength="7">
-        <button onclick="calculateDigit()">Calcular</button>
+        <input type="text" id="patenteInput" placeholder="Ej: 388LGV" maxlength="7">
+        <button id="calculate-btn">Calcular</button>
         <p id="result"></p>
+        <button id="theme-toggle">Cambiar Tema</button>
     </div>
 
-    <script>
-        // Carga la tabla de valores desde el archivo JSON
-        let letterValues = {};
-        fetch('values.json')
-            .then(response => response.json())
-            .then(data => {
-                letterValues = data;
-            })
-            .catch(error => {
-                console.error('Error al cargar la tabla de valores:', error);
-                const resultElement = document.getElementById('result');
-                resultElement.textContent = "Error al cargar los datos. Por favor, revisa el archivo 'values.json'.";
-                resultElement.style.color = 'red';
-            });
-
-        function calculateDigit() {
-            const patente = document.getElementById('patenteInput').value.toUpperCase();
-            const resultElement = document.getElementById('result');
-            
-            if (!patente) {
-                resultElement.textContent = "Por favor, introduce una patente.";
-                resultElement.style.color = 'red';
-                return;
-            }
-
-            let numericSequence = '';
-            for (const char of patente) {
-                if (/\d/.test(char)) {
-                    numericSequence += char;
-                } else if (letterValues[char] !== undefined) {
-                    const value = letterValues[char].toString().padStart(2, '0');
-                    numericSequence += value;
-                } else {
-                    resultElement.textContent = "Patente inválida. Solo se aceptan letras y números.";
-                    resultElement.style.color = 'red';
-                    return;
-                }
-            }
-            
-            let group1Sum = 0;
-            let group2Sum = 0;
-
-            // Se suma de derecha a izquierda, alternando entre los grupos
-            for (let i = numericSequence.length - 1; i >= 0; i--) {
-                const digit = parseInt(numericSequence[i], 10);
-                // Si la posición (contando desde 1) es impar, se suma al Grupo 1
-                if ((numericSequence.length - i) % 2 !== 0) {
-                    group1Sum += digit;aa
-                } else {
-                    // Si la posición es par, se suma al Grupo 2
-                    group2Sum += digit;
-                }
-            }
-
-            // Función para reducir la suma a un solo dígito
-            const reduceToSingleDigit = (num) => {
-                while (num >= 10) {
-                    num = num.toString().split('').reduce((acc, curr) => acc + parseInt(curr, 10), 0);
-                }
-                return num;
-            };
-
-            const finalGroup1 = reduceToSingleDigit(group1Sum);
-            const finalGroup2 = reduceToSingleDigit(group2Sum);
-
-            const verifierDigit = `${finalGroup1}${finalGroup2}`;
-            resultElement.textContent = `El dígito verificador es: ${verifierDigit}`;
-            resultElement.style.color = '#10b981'; /* text-emerald-500 */
-        }
-    </script>
+    <script src="./src/scripts/script.js"></script>
 </body>
+
 </html>
